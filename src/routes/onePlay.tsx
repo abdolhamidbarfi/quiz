@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form"
 import RenderFields from "../components/form/renderFields"
 import { FormSchemaType } from "../contracts/formContracts"
+import { apiGenerator } from "../helper/apiGenerator"
 
 
 interface IOnePlay {
@@ -12,16 +13,16 @@ const OnePlay: React.FC<IOnePlay> = () => {
   const { handleSubmit, control } = useForm({
     defaultValues: {
       playerName: "",
-      qustionCount: 10,
+      amount: 10,
       category: { value: "21", label: "Sport" },
       difficulty: { value: "medium", label: "Medium" },
-      type: { label: "multiple", value: "Multiple Choice" },
-      encoding: { value: '', label: 'Default Encoding' },
+      type: { value: "multiple", label: "Multiple Choice" },
+      encode: { value: '', label: 'Default Encoding' },
     }
   })
 
   const onSubmit = (data: any) => {
-    console.log(data)
+    console.log(apiGenerator(data, "playerName"))
   }
 
   const formSchema: FormSchemaType = {
@@ -31,7 +32,7 @@ const OnePlay: React.FC<IOnePlay> = () => {
       control: control,
       placeholder: "First Name"
     },
-    qustionCount: {
+    amount: {
       type: "number",
       label: "Number of Questions",
       control: control,
@@ -89,7 +90,7 @@ const OnePlay: React.FC<IOnePlay> = () => {
         { label: "True / False", value: "boolean" },
       ]
     },
-    encoding: {
+    encode: {
       type: "list",
       label: "Select Encoding",
       control: control,

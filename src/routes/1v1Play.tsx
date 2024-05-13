@@ -1,6 +1,7 @@
-import { FieldValues, useForm } from "react-hook-form"
+import { useForm } from "react-hook-form"
 import RenderFields from "../components/form/renderFields"
 import { FormSchemaType } from "../contracts/formContracts"
+import { apiGenerator } from "../helper/apiGenerator"
 
 
 interface IOneVsOne {
@@ -13,12 +14,12 @@ const OneVsOne: React.FC<IOneVsOne> = () => {
     const { handleSubmit, control } = useForm({
         defaultValues: {
             firstPlayer: "",
-            SecondPlayer: "",
-            qustionCount: 10,
+            secondPlayer: "",
+            amount: 10,
             category: { value: "21", label: "Sport" },
-            difficulty: { value: "Medium", label: "Medium" },
-            type: { value: "Multiple Choice", label: "Multiple Choice" },
-            encoding: { value: 'Default Encoding', label: 'Default Encoding' },
+            difficulty: { value: "medium", label: "Medium" },
+            type: { value: "multiple", label: "Multiple Choice" },
+            encode: { value: '', label: 'Default Encoding' },
         }
     })
 
@@ -30,13 +31,13 @@ const OneVsOne: React.FC<IOneVsOne> = () => {
             control: control,
             placeholder: "First Player Name"
         },
-        SecondPlayer: {
+        secondPlayer: {
             type: "text",
             label: "Enter second player name",
             control: control,
             placeholder: "Second Player Name"
         },
-        qustionCount: {
+        amount: {
             type: "number",
             label: "Number of Questions",
             control: control,
@@ -94,7 +95,7 @@ const OneVsOne: React.FC<IOneVsOne> = () => {
                 { label: "True / False", value: "boolean" },
             ]
         },
-        encoding: {
+        encode: {
             type: "list",
             label: "Select Encoding",
             control: control,
@@ -108,7 +109,8 @@ const OneVsOne: React.FC<IOneVsOne> = () => {
     }
 
     const onSubmit = (data: any) => {
-        console.log(data);
+        console.log(apiGenerator(data, "firstPlayer", "secondPlayer"));
+
     };
 
 
