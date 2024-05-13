@@ -1,64 +1,109 @@
-import { FieldValue, FieldValues, useForm } from "react-hook-form"
+import { FieldValues, useForm } from "react-hook-form"
 import RenderFields from "../components/form/renderFields"
+import { FormSchemaType } from "../contracts/formContracts"
 
 
 interface IOneVsOne {
 
 }
 
-interface IFormSchema {
-    [key: string]: { type: string, label : string, options?: FieldValues, control: FieldValues }
-}
 
 const OneVsOne: React.FC<IOneVsOne> = () => {
 
     const { handleSubmit, control } = useForm({
         defaultValues: {
-            firstName: "",
-            lastName: "",
-            email: "",
-            password: "",
-            gender: { value: 'chocolate', label: 'Chocolate' }
+            firstPlayer: "",
+            SecondPlayer: "",
+            qustionCount: 10,
+            category: { value: "21", label: "Sport" },
+            difficulty: { value: "Medium", label: "Medium" },
+            type: { value: "Multiple Choice", label: "Multiple Choice" },
+            encoding: { value: 'Default Encoding', label: 'Default Encoding' },
         }
     })
 
-    const options = {
-        gender: [
-            { value: 'chocolate', label: 'Chocolate' },
-            { value: 'strawberry', label: 'Strawberry' },
-            { value: 'vanilla', label: 'Vanilla' }
-        ]
-    }
 
-
-
-
-    const formSchema: IFormSchema = {
-        firstName: {
+    const formSchema: FormSchemaType = {
+        firstPlayer: {
             type: "text",
-            label: "Enter Your First Name",
+            label: "Enter first player name",
+            control: control,
+            placeholder: "First Player Name"
+        },
+        SecondPlayer: {
+            type: "text",
+            label: "Enter second player name",
+            control: control,
+            placeholder: "Second Player Name"
+        },
+        qustionCount: {
+            type: "number",
+            label: "Number of Questions",
             control: control,
         },
-        lastName: {
-            type: "text",
-            label: "Enter Your LastName",
-            control: control
-        },
-        email: {
-            type: "email",
-            label: "Enter Your Email",
-            control: control
-        },
-        password: {
-            type: "password",
-            label: "Enter Your Password",
-            control: control
-        },
-        gender: {
+        category: {
             type: "list",
-            label: "select Your Gender",
-            options: options.gender,
-            control: control
+            label: "Select Category",
+            control: control,
+            options: [
+                { value: "", label: "Any Category" },
+                { value: "9", label: "General Knowledge" },
+                { value: "10", label: "Entertainment: Books" },
+                { value: "11", label: "Entertainment: Film" },
+                { value: "12", label: "Entertainment: Music" },
+                { value: "13", label: "Entertainment: Musicals & Theatres" },
+                { value: "14", label: "Entertainment: Television" },
+                { value: "15", label: "Entertainment: Video Games" },
+                { value: "16", label: "Entertainment: Board Games" },
+                { value: "17", label: "Science & Nature" },
+                { value: "18", label: "Computers" },
+                { value: "19", label: "Mathematics" },
+                { value: "20", label: "Mythology" },
+                { value: "21", label: "Sports" },
+                { value: "22", label: "Geography" },
+                { value: "23", label: "History" },
+                { value: "24", label: "Politics" },
+                { value: "25", label: "Arts" },
+                { value: "26", label: "Celebrities" },
+                { value: "27", label: "Animals" },
+                { value: "28", label: "Vehicles" },
+                { value: "29", label: "Entertainment: Comics" },
+                { value: "30", label: "Science: Gadgets" },
+                { value: "31", label: "Entertainment: Japanese Anime & Mange" },
+                { value: "32", label: "Entertainment: Cartoon & Animations" },
+            ]
+        },
+        difficulty: {
+            type: "list",
+            label: "Select Difficulty",
+            control: control,
+            options: [
+                { value: "", label: "Any Difficulty" },
+                { value: "easy", label: "Easy" },
+                { value: "medium", label: "Medium" },
+                { value: "hard", label: "Hard" },
+            ]
+        },
+        type: {
+            type: "list",
+            label: "Select Type",
+            control: control,
+            options: [
+                { label: "Any type", value: "" },
+                { label: "Multiple Choice", value: "multiple" },
+                { label: "True / False", value: "boolean" },
+            ]
+        },
+        encoding: {
+            type: "list",
+            label: "Select Encoding",
+            control: control,
+            options: [
+                { value: "", label: "Default Encoding" },
+                { value: "lagacy", label: "Lagacy URL Encoding" },
+                { value: "url3986", label: "URL Encoding (RFC 3986)" },
+                { value: "base64", label: "Base64 Encoding" }
+            ]
         }
     }
 
@@ -71,7 +116,7 @@ const OneVsOne: React.FC<IOneVsOne> = () => {
         <div className="container mx-auto">
             <div className="w-96 mx-auto mt-10">
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <RenderFields formSchema={formSchema} />
+                    <RenderFields formSchema={formSchema} submitTxt="Generage Game" />
                 </form>
             </div>
         </div>

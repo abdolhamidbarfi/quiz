@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom"
 
-interface ISimpleCard {
+interface SimpleCardInterface {
     title: string
     link: string
     linkOptions?: {}
     className?: string
 }
 
-const SimpleCard: React.FC<ISimpleCard> = ({title , link , linkOptions, className}) => {
+const SimpleCard: React.FC<SimpleCardInterface> = ({title , link , linkOptions, className}) => {
 
     return (
         <Link to={link} {...linkOptions} >

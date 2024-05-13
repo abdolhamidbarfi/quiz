@@ -1,28 +1,26 @@
-import { FieldValues, UseFormRegister } from "react-hook-form";
-import Input, { IInput } from "./fields/input";
-import Select, { ISelect } from "./fields/select";
+import Input from "./fields/input";
+import Select from "./fields/select";
+import { FormSchemaType } from "../../contracts/formContracts";
 
-interface FormSchema {
-    [key: string]: { type: string, title: string }
-}
 
 interface IRenderFields {
-    formSchema: FormSchema
+    formSchema: FormSchemaType
+    submitTxt : string
 }
 
-const RenderFields: React.FC<IRenderFields> = ({ formSchema }) => {
+const RenderFields: React.FC<IRenderFields> = ({ formSchema , submitTxt}) => {
 
     const arrayField = []
 
     for (const [key, value] of Object.entries(formSchema)) {
-        ["text", "password", "email"].includes(value.type) && arrayField.push(<Input key={key} id={key} {...value} />)
+        ["text", "password", "email" , "number"].includes(value.type) && arrayField.push(<Input key={key} id={key} {...value} />)
         value.type === "list" && arrayField.push(<Select key={key} id={key}  {...value} />)
     }
 
     return (
         <>
             {arrayField.map(item => item)}
-            <input type="submit" className="bg-indigo-600 text-white font-bold w-full p-2 my-5 rounded-md cursor-pointer" />
+            <input type="submit" value={submitTxt} className="bg-indigo-600 text-white font-bold w-full p-2 my-5 rounded-md cursor-pointer" />
         </>
     )
 

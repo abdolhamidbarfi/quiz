@@ -3,7 +3,6 @@ import './index.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Root from './routes/root.tsx'
 import ErrorPage from './error-page.tsx'
-import Contact from './routes/contact.tsx'
 import OneVsOne from './routes/1v1Play.tsx'
 import OnePlay from './routes/onePlay.tsx'
 

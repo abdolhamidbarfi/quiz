@@ -1,12 +1,8 @@
-import { Control, Controller, FieldValues, RegisterOptions, UseFormRegister } from 'react-hook-form'
+import {Controller } from 'react-hook-form'
 import Selecter from 'react-select'
-import { InputType } from '../../../contracts/formContracts'
+import { SelectInterface } from '../../../contracts/formContracts'
 
-export interface SelectInterface extends InputType{
-    options?: { value: string, label: string }[]
-}
-
-const Select: React.FC<SelectInterface> = ({ label , id, options, control, rules , ...regs }) => {
+const Select: React.FC<SelectInterface> = ({ label, id, options, control, rules, ...regs }) => {
     return (
         <div className="relative mt-2 rounded-md shadow-sm">
             <label htmlFor={id} className="block text-sm font-medium leading-6 text-gray-900">{label}</label>
