@@ -2,7 +2,7 @@ import { Control, FieldValues, RegisterOptions } from "react-hook-form"
 
 export type InputType = {
     id: string
-    type: "list" | "email" | "password" | "text" | "number"
+    type: "list" | "email" | "password" | "text" | "number" 
     label: string
     placeholder?: string
     control?: Control<any>
@@ -21,5 +21,9 @@ interface FormSchemaInterface extends Omit<InputType, 'id'>, Omit<SelectInterfac
 }
 
 export type FormSchemaType = {
-    [key: string]: FormSchemaInterface
+    [key: string ]: FormSchemaInterface 
 }
+
+
+
+

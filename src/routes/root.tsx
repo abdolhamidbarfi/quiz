@@ -14,7 +14,7 @@ const Root: React.FC<IRoot> = () => {
     return (
         <>
             <div className="container mx-auto">
-                <div className="flex justify-center items-center">
+                <div className="flex justify-center items-center h-[100vh] gap-20">
                     {dataTable.map(card => <SimpleCard {...card} />)}
                 </div>
             </div>

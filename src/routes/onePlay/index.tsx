@@ -1,7 +1,11 @@
 import { useForm } from "react-hook-form"
-import RenderFields from "../components/form/renderFields"
-import { FormSchemaType } from "../contracts/formContracts"
-import { apiGenerator } from "../helper/apiGenerator"
+import RenderFields from "../../components/form/renderFields"
+import { FormSchemaType } from "../../contracts/formContracts"
+import { queryGenerator } from "../../helper/queryGenerator"
+import callApi from "../../helper/callApi"
+import { getQuiz } from "../../store/Slices/quizSlice"
+import { useAppDispatch, useAppSelecor } from "../../store"
+import { useNavigate } from "react-router-dom"
 
 
 interface IOnePlay {
@@ -10,6 +14,7 @@ interface IOnePlay {
 
 const OnePlay: React.FC<IOnePlay> = () => {
 
+  const dispatch = useAppDispatch()
   const { handleSubmit, control } = useForm({
     defaultValues: {
       playerName: "",
@@ -20,9 +25,12 @@ const OnePlay: React.FC<IOnePlay> = () => {
       encode: { value: '', label: 'Default Encoding' },
     }
   })
+  const quizData = useAppSelecor((state) => state.quiz)
+  const navigate = useNavigate()
 
-  const onSubmit = (data: any) => {
-    console.log(apiGenerator(data, "playerName"))
+  const onSubmit = async (data: any) => {
+    
+    dispatch(getQuiz(data))
   }
 
   const formSchema: FormSchemaType = {
@@ -103,11 +111,15 @@ const OnePlay: React.FC<IOnePlay> = () => {
     }
   }
 
+  if (quizData.success) {
+    navigate("/1-play/start")
+  }
+
   return (
-    <div className="container mx-auto">
-      <div className="w-96 mx-auto mt-10">
+    <div className="h-[100vh] flex justify-center items-center">
+      <div className="w-96">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <RenderFields formSchema={formSchema} submitTxt="Generage Game" />
+          <RenderFields formSchema={formSchema} submitTxt="Generate Game" loading={quizData.loading} />
         </form>
       </div>
     </div>

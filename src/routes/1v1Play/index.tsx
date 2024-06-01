@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form"
-import RenderFields from "../components/form/renderFields"
-import { FormSchemaType } from "../contracts/formContracts"
-import { apiGenerator } from "../helper/apiGenerator"
+import RenderFields from "../../components/form/renderFields"
+import { FormSchemaType } from "../../contracts/formContracts"
+import { queryGenerator } from "../../helper/queryGenerator"
 
 
 interface IOneVsOne {
@@ -109,14 +109,16 @@ const OneVsOne: React.FC<IOneVsOne> = () => {
     }
 
     const onSubmit = (data: any) => {
-        console.log(apiGenerator(data, "firstPlayer", "secondPlayer"));
+        // apiGenerator(data, "firstPlayer", "secondPlayer");
+        // console.log(data)
+
 
     };
 
 
     return (
         <div className="container mx-auto">
-            <div className="w-96 mx-auto mt-10">
+            <div className="w-96 h-[100vh] flex justify-center items-center">
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <RenderFields formSchema={formSchema} submitTxt="Generage Game" />
                 </form>

@@ -4,25 +4,24 @@ import './App.css'
 function App() {
 
   const [text, setText] = useState("")
+  const [start, setStart] = useState(false)
 
-  function handlesubmit(event: any) {
-    event.preventDefault()
+  function handleSubmit(e: any) {
+    e.preventDefault()
     console.log(text)
-  }
-
-  function handleChange (input : any) {
-    setText(input.target.value)
+    setStart(true)
   }
 
   return (
     <>
       <div>
-        <h1 >
-          <form onClick={handlesubmit}>
-            <input type='text' value={text} onChange={handleChange} />
-            <input type="submit"  />
-          </form>
-        </h1>
+        <form onSubmit={handleSubmit}>
+          <input type='text' className='border-gray-200 border-2 ' onChange={(e) => setText(e.target.value)} value={text} />
+          <button type='submit'>Click</button>
+        </form>
+        <div id='timer'>
+          {start ? <span>{text}</span> : null}
+        </div>
       </div>
     </>
   )

@@ -1,9 +1,10 @@
 
 const obj: any = {}
 
-let baseUrl = "https://opentdb.com/api.php?"
+let api = ""
 
-export function apiGenerator(data: any, ...names: string[]) {
+//apiGenerator get data to generate a api link and get some names to remove some data query from api link
+export function queryGenerator(data: any, ...names: string[]) {
     for (const [key] of Object.entries(data)) {
         data[key].value !== undefined
             ? obj[key] = data[key].value
@@ -12,9 +13,11 @@ export function apiGenerator(data: any, ...names: string[]) {
 
     for (const [key, value] of Object.entries(obj)) {
         if (!names.includes(key) && value) {
-            baseUrl = baseUrl.concat(`${key}=${value}&`)
+            api = api.concat(`${key}=${value}&`)
         }
     }
 
-    return baseUrl.slice(0, -1)
-}
+    api = "?" + api.slice(0, -1)
+
+    return api
+} 
