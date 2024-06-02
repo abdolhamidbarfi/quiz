@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useAppSelecor } from "../../store"
 import RenderQuiz from "../../components/form/renderQuiz"
-import ReviewQuiz from "../../components/form/reviewQuiz"
+import { useQuiz } from "../../helper/hooks/useQuiz"
 
 
 interface EndOnePlayerInterface {
@@ -10,11 +10,14 @@ interface EndOnePlayerInterface {
 }
 const EndOnePlayer: React.FC<EndOnePlayerInterface> = () => {
 
-    const { answers, data } = useAppSelecor(state => state.quiz)
+    
+    const { answers, data, quizResult } = useQuiz()
     const [reviewAnswers, setReviewAnswers] = useState(false)
-    const numberOfCurrects = data.correctAnswers.filter((answer: any, index) => answers["qustion" + index] === answer).length
-    const numberOfWrongs  = data.quizData.length - numberOfCurrects
-    const pathQuiz = numberOfCurrects > numberOfWrongs 
+    const numberOfCurrects = data.correctAnswers.filter((answer, index) => answer === answers["qz00" + (index + 1)]).length
+    const numberOfWrongs = data.quizData.length - numberOfCurrects
+    const pathQuiz = numberOfCurrects > numberOfWrongs
+    
+    console.log(quizResult.corrects)
 
     if (!reviewAnswers) {
         return (
@@ -30,10 +33,9 @@ const EndOnePlayer: React.FC<EndOnePlayerInterface> = () => {
         )
     } else if (reviewAnswers) {
         return (
-            <ReviewQuiz
-                data={data}
-                answers={answers}
-            />
+            <div className="bg-indigo-400 text-gray-100 h-[100vh]">
+                <RenderQuiz review />
+            </div>
         )
     }
 }

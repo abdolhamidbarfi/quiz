@@ -1,7 +1,6 @@
 import { useForm } from "react-hook-form"
 import RenderFields from "../../components/form/renderFields"
 import { FormSchemaType } from "../../contracts/formContracts"
-import { queryGenerator } from "../../helper/queryGenerator"
 
 
 interface IOneVsOne {
@@ -107,6 +106,7 @@ const OneVsOne: React.FC<IOneVsOne> = () => {
             ]
         }
     }
+
 
     const onSubmit = (data: any) => {
         // apiGenerator(data, "firstPlayer", "secondPlayer");

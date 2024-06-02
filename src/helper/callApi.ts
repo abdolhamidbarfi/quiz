@@ -1,10 +1,10 @@
-import axios, { AxiosRequestConfig } from "axios"
+import axios, { AxiosRequestConfig, AxiosResponse } from "axios"
 import { baseApiEndpoind } from "./baseUrls"
 
 
 
 
-export default function callApi() {
+function customAxios() {
 
     const axiosInstance = axios.create({
         baseURL: baseApiEndpoind,
@@ -34,6 +34,40 @@ export default function callApi() {
 
 
     return axiosInstance
+}
+
+
+interface CallApiInterface {
+    get: (url: string, config?: AxiosRequestConfig<any>) => Promise<AxiosResponse<any, any>>
+    post: (url: string, data: any, config?: AxiosRequestConfig<any>) => Promise<AxiosResponse<any, any>>
+    delete: (url: string, config?: AxiosRequestConfig<any>) => Promise<AxiosResponse<any, any>>
+    put: (url: string, data: any, config?: AxiosRequestConfig<any>) => Promise<AxiosResponse<any, any>>
+}
+
+export const callApi: CallApiInterface = {
+    async get(url, config) {
+        return await customAxios().get(url, config)
+            .then((res) => res)
+            .catch(err => err)
+    },
+
+    async post(url, data, config) {
+        return await customAxios().post(url, data, config)
+            .then((res) => res)
+            .catch(err => err)
+    },
+
+    async delete(url, config) {
+        return await customAxios().delete(url, config)
+            .then((res) => res)
+            .catch(err => err)
+    },
+
+    async put(url, data, config) {
+        return await customAxios().put(url, data, config)
+            .then((res) => res)
+            .catch(err => err)
+    }
 }
 
 

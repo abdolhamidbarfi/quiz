@@ -1,11 +1,12 @@
 import { useForm } from "react-hook-form"
 import RenderFields from "../../components/form/renderFields"
 import { FormSchemaType } from "../../contracts/formContracts"
-import { queryGenerator } from "../../helper/queryGenerator"
-import callApi from "../../helper/callApi"
 import { getQuiz } from "../../store/Slices/quizSlice"
 import { useAppDispatch, useAppSelecor } from "../../store"
 import { useNavigate } from "react-router-dom"
+import { callApi } from "../../helper/callApi"
+import { useEffect } from "react"
+import axios from "axios"
 
 
 interface IOnePlay {
@@ -29,7 +30,6 @@ const OnePlay: React.FC<IOnePlay> = () => {
   const navigate = useNavigate()
 
   const onSubmit = async (data: any) => {
-    
     dispatch(getQuiz(data))
   }
 

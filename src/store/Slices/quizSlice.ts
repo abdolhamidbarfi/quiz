@@ -1,11 +1,20 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
-import callApi from "../../helper/callApi";
+import { callApi } from "../../helper/callApi";
 import { queryGenerator } from "../../helper/queryGenerator";
 import { quizGenerator } from "../../helper/quizGenerator";
 
 export interface QuizState {
-    data: { quizData: {}[], correctAnswers: number[] }
+    data: {
+        quizData: {
+            type: string
+            difficulty: string
+            category: string
+            question: string
+            correct_answer: string
+            answers: string[]
+        }[],
+        correctAnswers: string[]
+    }
     success: boolean,
     loading: boolean,
     error: boolean,
@@ -20,7 +29,7 @@ const initialState: QuizState = {
     answers: ""
 }
 
-const getQuizRequest = (data: any) => callApi().get(queryGenerator(data, "playerName"))
+const getQuizRequest = (data: any) => callApi.get(queryGenerator(data, "playerName"))
 
 export const getQuiz = createAsyncThunk("getQuiz", getQuizRequest)
 
