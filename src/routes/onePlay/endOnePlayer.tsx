@@ -11,13 +11,12 @@ interface EndOnePlayerInterface {
 const EndOnePlayer: React.FC<EndOnePlayerInterface> = () => {
 
     
-    const { answers, data, quizResult } = useQuiz()
+    const { userAnswers, data, quizResult } = useQuiz()
     const [reviewAnswers, setReviewAnswers] = useState(false)
-    const numberOfCurrects = data.correctAnswers.filter((answer, index) => answer === answers["qz00" + (index + 1)]).length
+    const numberOfCurrects = data.correctAnswers.filter((answer, index) => answer === userAnswers["qz00" + (index + 1)]).length
     const numberOfWrongs = data.quizData.length - numberOfCurrects
     const pathQuiz = numberOfCurrects > numberOfWrongs
     
-    console.log(quizResult.corrects)
 
     if (!reviewAnswers) {
         return (

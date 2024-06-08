@@ -23,9 +23,9 @@ const SingleQuiz: React.FC<SingleQuizInterface> = (
     }) => {
 
     const [startAnimation, setStartAnimation] = useState(false)
-    const { endQuiz } = useQuiz()
+    const { endQuiz, userAnswers } = useQuiz()
     const name = "qz00" + questionNumber
-    const {data} = useQuiz()
+    const { data } = useQuiz()
 
     if (endQuiz) {
         return (
@@ -37,7 +37,12 @@ const SingleQuiz: React.FC<SingleQuizInterface> = (
                             {options?.map((item: string, itemIndex) => {
                                 let className = ""
 
-                                data.correctAnswers[questionNumber - 1] === item ? className = "text-green-400" : ""
+                                if (data.correctAnswers[questionNumber - 1] === item) {
+                                    className = "text-green-400"
+                                } else if (userAnswers["qz00" + questionNumber] === item) {
+                                    className = "text-red-400"
+                                }
+
 
                                 return data.correctAnswers[questionNumber - 1] === item
                                     ? <RadioCard title={item} name={name} index={itemIndex as number} className={className} disabled checked />

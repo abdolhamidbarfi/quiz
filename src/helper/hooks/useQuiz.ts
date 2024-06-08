@@ -8,7 +8,7 @@ export function useQuiz() {
     const quizResult = handleQuizResult(data.correctAnswers , answers)
 
     return {
-        answers,
+        userAnswers: answers,
         data,
         error,
         loading,
